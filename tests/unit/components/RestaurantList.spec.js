@@ -55,6 +55,22 @@ describe('RestaurantList', () => {
       expect(findByTestId(wrapper, 'restaurant', 0).text()).toBe('Sushi Place');
       expect(findByTestId(wrapper, 'restaurant', 1).text()).toBe('Pizza Place');
     });
+
+    it('does not display the error message', () => {
+      expect(wrapper.find('[data-testid="loading-error"]').exists()).toBe(
+        false,
+      );
+    });
+  });
+
+  describe('when loading fails', () => {
+    beforeEach(() => {
+      mountWithStore({loadError: true});
+    });
+
+    it('displays the error message', () => {
+      expect(wrapper.find('[data-testid="loading-error"]').exists()).toBe(true);
+    });
   });
 
   it('loads restaurants on mount', () => {
